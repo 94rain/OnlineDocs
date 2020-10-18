@@ -1,9 +1,7 @@
-package top.jisy.docs.parent.docs.dao;
+package top.jisy.docs.dao;
 
-import top.jisy.docs.parent.docs.entity.User;
-import top.jisy.docs.parent.docs.entity.UserExample;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
+import top.jisy.docs.pojo.User;
 
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
@@ -12,11 +10,11 @@ public interface UserMapper {
 
     int insertSelective(User record);
 
-    List<User> selectByExample(UserExample example);
-
     User selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    User queryUser(@RequestParam("username")String username, @RequestParam("password")String password);
 }

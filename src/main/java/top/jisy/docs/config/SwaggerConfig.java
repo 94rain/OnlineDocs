@@ -1,4 +1,4 @@
-package top.jisy.docs.parent.docs.config;
+package top.jisy.docs.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

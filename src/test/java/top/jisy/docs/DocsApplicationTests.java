@@ -1,4 +1,4 @@
-package top.jisy.docs.parent.docs;
+package top.jisy.docs;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
