@@ -15,7 +15,7 @@ public class User {
 
     private Date utime;
 
-    public User(Integer id, String name){
+    public User(Integer id, String name) {
         this.id = id;
         this.name = name;
     }

@@ -18,13 +18,13 @@ public class Result implements Serializable {
     public Result() {
     }
 
-    public Result(Boolean flag,Integer code,String message) {
+    public Result(Boolean flag, Integer code, String message) {
         this.code = code;
         this.flag = flag;
         this.message = message;
     }
 
-    public Result(Boolean flag,Integer code, String message, Object data) {
+    public Result(Boolean flag, Integer code, String message, Object data) {
         this.code = code;
         this.flag = flag;
         this.message = message;

@@ -1,20 +1,25 @@
+server:
+  # æœåŠ¡å™¨ç«¯å£å·
+  port: 8081
+  servlet:
+    context-path: /
 spring:
   application:
     name: OnlineDocs
-  dataSource:
-    driverClassName: com.mysql.cj.jdbc.Driver
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://aliyun.jisy.me:3306/cmd?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: doc
     password: AliyunDocApplication
 
-jwt:
-  config:
-    key: OnlineDocs
-    ttl: 3600000
-    secret: OnlineDocs@Login(Auth}*^31)&JSY% # µÇÂ¼Ğ£ÑéµÄÃÜÔ¿
-    expire: 30 # ¹ıÆÚÊ±¼ä,µ¥Î»·ÖÖÓ
-    cookieName: DOC_TOKEN
-    pubKeyPath:
-      classpath: rsa/rsa.pub # ¹«Ô¿µØÖ·
-    priKeyPath:
-      classpath: rsa/sa.pri # Ë½Ô¿µØÖ·
+#jwt:
+#  config:
+#    key: OnlineDocs
+#    ttl: 3600000
+#    secret: OnlineDocs@Login(Auth}*^31)&JSY% # ç™»å½•æ ¡éªŒçš„å¯†é’¥
+#    expire: 30 # è¿‡æœŸæ—¶é—´,å•ä½åˆ†é’Ÿ
+#    cookieName: DOC_TOKEN
+#    pubKeyPath:
+#      classpath: rsa/rsa.pub # å…¬é’¥åœ°å€
+#    priKeyPath:
+#      classpath: rsa/sa.pri # ç§é’¥åœ°å€

@@ -1,6 +1,6 @@
 package top.jisy.docs.service;
 
-public interface LoginService {
+public interface UserService {
     /**
      * 用户登录
      *
@@ -9,5 +9,4 @@ public interface LoginService {
      * @return
      */
     String authentication(String username, String password);
-
 }

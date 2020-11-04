@@ -6,7 +6,7 @@
 
 <generatorConfiguration>
     <!-- 引入配置文件 -->
-    <properties resource="application-dev.properties"/>
+    <properties resource="application-dev.yml"/>
 
     <!-- 一个数据库一个context,context的子元素必须按照它给出的顺序
         property*,plugin*,commentGenerator?,jdbcConnection,javaTypeResolver?,
