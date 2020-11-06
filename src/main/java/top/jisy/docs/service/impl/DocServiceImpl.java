@@ -24,6 +24,6 @@ public class DocServiceImpl implements DocService {
 
     @Override
     public List<Doc> getDocsByUserId(int userId) {
-        return null;
+        return docmapper.queryDocsByUserId(userId);
     }
 }
