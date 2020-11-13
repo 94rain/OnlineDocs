@@ -1,5 +1,6 @@
 package top.jisy.docs.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import top.jisy.docs.pojo.Doc;
 
@@ -22,5 +23,8 @@ public interface DocMapper {
 
     @Select("select * from doc")
     List<Doc> queryDoc();
+
+    @Select("select * from doc where cuser = #{UserId}")
+    List<Doc> queryDocsByUserId(@Param("UserId") int UserId);
 
 }
