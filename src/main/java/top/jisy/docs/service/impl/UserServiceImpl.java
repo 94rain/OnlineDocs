@@ -1,9 +1,12 @@
 package top.jisy.docs.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import top.jisy.docs.dao.UserMapper;
+import top.jisy.docs.pojo.User;
 import top.jisy.docs.service.UserService;
 
+@Component
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -26,5 +29,11 @@ public class UserServiceImpl implements UserService {
         //     return null;
         // }
     }
+
+    @Override
+    public int registration(User user) {
+        return userMapper.insertSelective(user);
+    }
+
 
 }

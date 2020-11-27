@@ -1,6 +1,5 @@
 package top.jisy.docs.controller;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 import top.jisy.docs.pojo.Doc;
 import top.jisy.docs.service.DocService;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -23,7 +21,7 @@ public class DocController {
     }
 
     @GetMapping("/doc/get/{UserId}")
-    public List<Doc> getDocByUserId(@PathVariable("UserId") int id){
+    public List<Doc> getDocByUserId(@PathVariable("UserId") int id) {
         return docService.getDocsByUserId(id);
     }
 

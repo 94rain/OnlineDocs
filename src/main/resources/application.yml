@@ -8,18 +8,8 @@ spring:
     name: OnlineDocs
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://aliyun.jisy.me:3306/cmd?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://aliyun.jisy.me:3306/cmd?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: doc
     password: AliyunDocApplication
-
-#jwt:
-#  config:
-#    key: OnlineDocs
-#    ttl: 3600000
-#    secret: OnlineDocs@Login(Auth}*^31)&JSY% # 登录校验的密钥
-#    expire: 30 # 过期时间,单位分钟
-#    cookieName: DOC_TOKEN
-#    pubKeyPath:
-#      classpath: rsa/rsa.pub # 公钥地址
-#    priKeyPath:
-#      classpath: rsa/sa.pri # 私钥地址
+mybatis:
+  mapper-locations: classpath*:/mapper/*.xml

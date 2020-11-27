@@ -1,6 +1,8 @@
 package top.jisy.docs.dao;
 
-import org.springframework.web.bind.annotation.RequestParam;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import top.jisy.docs.pojo.User;
 
 public interface UserMapper {
@@ -8,7 +10,7 @@ public interface UserMapper {
 
     int insert(User record);
 
-    int insertSelective(User record);
+    int insertSelective(User user);
 
     User selectByPrimaryKey(Integer id);
 
@@ -16,5 +18,9 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-    User queryUser(@RequestParam("username") String username, @RequestParam("password") String password);
+    @Select("select * from user where username = #{username} and password = #{password}")
+    User queryUser(@Param("username") String username, @Param("password") String password);
+
+    @Select("SELECT u FROM User u WHERE LOWER(u.name)= #{username}")
+    User getUserByName(@Param("username") String username);
 }

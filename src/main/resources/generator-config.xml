@@ -6,8 +6,6 @@
 
 <generatorConfiguration>
     <!-- 引入配置文件 -->
-    <properties resource="application-dev.yml"/>
-
     <!-- 一个数据库一个context,context的子元素必须按照它给出的顺序
         property*,plugin*,commentGenerator?,jdbcConnection,javaTypeResolver?,
         javaModelGenerator,sqlMapGenerator?,javaClientGenerator?,table+
@@ -29,10 +27,10 @@
 
 
         <!-- jdbc连接 -->
-        <jdbcConnection driverClass="${spring.datasource.driverClassName}"
-                        connectionURL="${spring.datasource.url}"
-                        userId="${spring.datasource.username}"
-                        password="${spring.datasource.password}">
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://aliyun.jisy.me:3306/cmd?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true"
+                        userId="doc"
+                        password="AliyunDocApplication">
             <!--高版本的 mysql-connector-java 需要设置 nullCatalogMeansCurrent=true-->
             <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>

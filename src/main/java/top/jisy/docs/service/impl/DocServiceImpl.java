@@ -15,15 +15,15 @@ public class DocServiceImpl implements DocService {
     private static Logger logger = LoggerFactory.getLogger(DocServiceImpl.class);
 
     @Autowired
-    DocMapper docmapper;
+    DocMapper docMapper;
 
     @Override
     public List<Doc> getDocs() {
-        return docmapper.queryDoc();
+        return docMapper.queryDoc();
     }
 
     @Override
     public List<Doc> getDocsByUserId(int userId) {
-        return docmapper.queryDocsByUserId(userId);
+        return docMapper.queryDocsByUserId(userId);
     }
 }
