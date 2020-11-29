@@ -1,7 +1,10 @@
 package top.jisy.docs.pojo;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 public class Repo {
 
     @Id
@@ -12,6 +15,8 @@ public class Repo {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "FK_USERS")
     private User owner;
+
+    private Integer fkUser;
 
     public int getId() {
         return id;
@@ -27,6 +32,14 @@ public class Repo {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public Integer getFkUser() {
+        return fkUser;
+    }
+
+    public void setFkUser(Integer fkUser) {
+        this.fkUser = fkUser;
     }
 
     @Override

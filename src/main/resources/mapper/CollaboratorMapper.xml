@@ -1,88 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="top.jisy.docs.dao.CollaboratorMapper">
-    <resultMap id="BaseResultMap" type="top.jisy.docs.pojo.Collaborator">
-        <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="FK_USER" jdbcType="INTEGER" property="fkUser"/>
-        <result column="FK_DOC" jdbcType="INTEGER" property="fkDoc"/>
-        <result column="HAS_ACCESS" jdbcType="VARCHAR" property="hasAccess"/>
-        <result column="CTIME" jdbcType="TIMESTAMP" property="ctime"/>
-    </resultMap>
-    <sql id="Base_Column_List">
+<mapper namespace="top.jisy.docs.dao.mapper.CollaboratorMapper">
+  <resultMap id="BaseResultMap" type="top.jisy.docs.pojo.Collaborator">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="FK_USER" jdbcType="INTEGER" property="fkUser" />
+    <result column="FK_DOC" jdbcType="INTEGER" property="fkDoc" />
+    <result column="HAS_ACCESS" jdbcType="VARCHAR" property="hasAccess" />
+    <result column="CTIME" jdbcType="TIMESTAMP" property="ctime" />
+  </resultMap>
+  <sql id="Base_Column_List">
     id, FK_USER, FK_DOC, HAS_ACCESS, CTIME
   </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from collaborator
-        where id = #{id,jdbcType=INTEGER}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from collaborator
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from collaborator
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="top.jisy.docs.pojo.Collaborator">
+  <insert id="insert" parameterType="top.jisy.docs.pojo.Collaborator">
     insert into collaborator (id, FK_USER, FK_DOC, 
       HAS_ACCESS, CTIME)
     values (#{id,jdbcType=INTEGER}, #{fkUser,jdbcType=INTEGER}, #{fkDoc,jdbcType=INTEGER}, 
       #{hasAccess,jdbcType=VARCHAR}, #{ctime,jdbcType=TIMESTAMP})
   </insert>
-    <insert id="insertSelective" parameterType="top.jisy.docs.pojo.Collaborator">
-        insert into collaborator
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="fkUser != null">
-                FK_USER,
-            </if>
-            <if test="fkDoc != null">
-                FK_DOC,
-            </if>
-            <if test="hasAccess != null">
-                HAS_ACCESS,
-            </if>
-            <if test="ctime != null">
-                CTIME,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
-            <if test="fkUser != null">
-                #{fkUser,jdbcType=INTEGER},
-            </if>
-            <if test="fkDoc != null">
-                #{fkDoc,jdbcType=INTEGER},
-            </if>
-            <if test="hasAccess != null">
-                #{hasAccess,jdbcType=VARCHAR},
-            </if>
-            <if test="ctime != null">
-                #{ctime,jdbcType=TIMESTAMP},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="top.jisy.docs.pojo.Collaborator">
-        update collaborator
-        <set>
-            <if test="fkUser != null">
-                FK_USER = #{fkUser,jdbcType=INTEGER},
-            </if>
-            <if test="fkDoc != null">
-                FK_DOC = #{fkDoc,jdbcType=INTEGER},
-            </if>
-            <if test="hasAccess != null">
-                HAS_ACCESS = #{hasAccess,jdbcType=VARCHAR},
-            </if>
-            <if test="ctime != null">
-                CTIME = #{ctime,jdbcType=TIMESTAMP},
-            </if>
-        </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="top.jisy.docs.pojo.Collaborator">
+  <insert id="insertSelective" parameterType="top.jisy.docs.pojo.Collaborator">
+    insert into collaborator
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="fkUser != null">
+        FK_USER,
+      </if>
+      <if test="fkDoc != null">
+        FK_DOC,
+      </if>
+      <if test="hasAccess != null">
+        HAS_ACCESS,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fkUser != null">
+        #{fkUser,jdbcType=INTEGER},
+      </if>
+      <if test="fkDoc != null">
+        #{fkDoc,jdbcType=INTEGER},
+      </if>
+      <if test="hasAccess != null">
+        #{hasAccess,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="top.jisy.docs.pojo.Collaborator">
+    update collaborator
+    <set>
+      <if test="fkUser != null">
+        FK_USER = #{fkUser,jdbcType=INTEGER},
+      </if>
+      <if test="fkDoc != null">
+        FK_DOC = #{fkDoc,jdbcType=INTEGER},
+      </if>
+      <if test="hasAccess != null">
+        HAS_ACCESS = #{hasAccess,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="top.jisy.docs.pojo.Collaborator">
     update collaborator
     set FK_USER = #{fkUser,jdbcType=INTEGER},
       FK_DOC = #{fkDoc,jdbcType=INTEGER},

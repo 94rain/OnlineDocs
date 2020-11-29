@@ -1,19 +1,22 @@
-package top.jisy.docs.websocket;
+package top.jisy.docs.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import top.jisy.docs.config.Hashing;
 import top.jisy.docs.constant.FieldValues;
 import top.jisy.docs.crdt.ActiveDocument;
 import top.jisy.docs.crdt.Message;
 import top.jisy.docs.crdt.MessageBroker;
-import top.jisy.docs.dao.DocMapper;
-import top.jisy.docs.dao.HistoryMapper;
-import top.jisy.docs.dao.UserMapper;
+import top.jisy.docs.dao.mapper.DocMapper;
+import top.jisy.docs.dao.mapper.HistoryMapper;
+import top.jisy.docs.dao.mapper.UserMapper;
 import top.jisy.docs.enums.MessageType;
 import top.jisy.docs.pojo.Doc;
 import top.jisy.docs.pojo.History;
+import top.jisy.docs.util.websocket.MessageDecoder;
+import top.jisy.docs.util.websocket.MessageEncoder;
 
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
@@ -22,8 +25,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+
+@Component
 @ServerEndpoint(value = "/ws/{docId}/{username}/{userId}", encoders = {MessageEncoder.class}, decoders = {MessageDecoder.class})
-public class Endpoint {
+public class WebSocketServer {
 
     private static final Logger log = LoggerFactory.getLogger(Endpoint.class);
 
@@ -33,13 +38,13 @@ public class Endpoint {
     private static Map<Integer, ActiveDocument> docs = Collections.synchronizedMap(new HashMap<>());
 
     @Autowired
-    private DocMapper docDao;
+    private DocMapper docMapper;
 
     @Autowired
-    private UserMapper userDao;
+    private UserMapper userMapper;
 
     @Autowired
-    private HistoryMapper historyDao;
+    private HistoryMapper historyMapper;
 
     @Autowired
     private MessageBroker messageBroker;
@@ -55,14 +60,17 @@ public class Endpoint {
      * @param session  Current user session
      */
     @OnOpen
-    public void onOpen(@PathParam("docId") int docId, @PathParam(FieldValues.SESSION_USERNAME) String username, @PathParam(FieldValues.SESSION_USERID) int userId, Session session) {
+    public void onOpen(@PathParam("docId") int docId,
+                       @PathParam(FieldValues.SESSION_USERNAME) String username,
+                       @PathParam(FieldValues.SESSION_USERID) int userId,
+                       Session session) {
         session.getUserProperties().put(FieldValues.SESSION_USERNAME, username);
         session.getUserProperties().put(FieldValues.SESSION_USERID, userId);
 
         Doc doc = null;
 
         if (docs.get(docId) == null) {
-            doc = docDao.selectByPrimaryKey(docId);
+            doc = docMapper.selectByPrimaryKey(docId);
             if (doc == null) {
                 Message wrongDocIdMsg = messageBroker.createSystemMessage(userId, docId, -1, String.valueOf(docId), MessageType.WrongDocId);
                 messageBroker.publishToSingleUser(wrongDocIdMsg, session);
@@ -134,17 +142,17 @@ public class Endpoint {
             if (docs.get(docId).getUsers().isEmpty()) {
 
                 // Save current doc from db to history
-                Doc currentDocState = docDao.selectByPrimaryKey(docId);
+                Doc currentDocState = docMapper.selectByPrimaryKey(docId);
                 History history = new History();
                 history.setContent(currentDocState.getContent());
-                history.setDoc(currentDocState);
+                history.setFkDoc(currentDocState.getId());
                 history.setHash(hashing.hashDocContent(history.getContent()));
-                historyDao.insertSelective(history);
+                historyMapper.insertSelective(history);
 
                 // Save current doc from client to db
                 Doc activeDoc = docs.get(docId).getDoc();
-                activeDoc.setUuser(userDao.getUserByName(session.getUserProperties().get(FieldValues.SESSION_USERNAME).toString().toLowerCase()));
-                docDao.updateByPrimaryKeySelective(activeDoc);
+                activeDoc.setUuser(userMapper.getUserByName(session.getUserProperties().get(FieldValues.SESSION_USERNAME).toString()).getId());
+                docMapper.updateByPrimaryKeySelective(activeDoc);
 
                 docs.remove(docId);
             }

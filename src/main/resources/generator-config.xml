@@ -54,7 +54,7 @@
         </javaTypeResolver>
 
         <!-- 生成实体类地址 -->
-        <javaModelGenerator targetPackage="top.jisy.docs.entity" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="top.jisy.docs.pojo" targetProject="src/main/java">
             <!-- 是否让 schema 作为包的后缀，默认为false -->
             <!--<property name="enableSubPackages" value="false"/>-->
             <!-- 是否针对string类型的字段在set方法中进行修剪，默认false -->

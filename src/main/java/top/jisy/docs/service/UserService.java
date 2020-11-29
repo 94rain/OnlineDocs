@@ -1,6 +1,5 @@
 package top.jisy.docs.service;
 
-import org.apache.ibatis.annotations.Insert;
 import org.springframework.stereotype.Component;
 import top.jisy.docs.pojo.User;
 
@@ -15,5 +14,9 @@ public interface UserService {
      */
     String authentication(String username, String password);
 
+    /**
+     * @param user
+     * @return
+     */
     int registration(User user);
 }

@@ -1,4 +1,4 @@
-package top.jisy.docs.dao;
+package top.jisy.docs.dao.mapper;
 
 import top.jisy.docs.pojo.Repo;
 
@@ -14,4 +14,6 @@ public interface RepoMapper {
     int updateByPrimaryKeySelective(Repo record);
 
     int updateByPrimaryKey(Repo record);
+
+    Repo getRepoByUser(Integer userId);
 }

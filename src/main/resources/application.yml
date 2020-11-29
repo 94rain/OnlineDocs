@@ -1,6 +1,6 @@
 server:
-  # 服务器端口号
-  port: 81
+  # port
+  port: 8082
   servlet:
     context-path: /
 spring:
@@ -8,8 +8,11 @@ spring:
     name: OnlineDocs
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://aliyun.jisy.me:3306/cmd?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
-    username: doc
-    password: AliyunDocApplication
+    url: jdbc:mysql://localhost:3306/cmd?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: mysqluser # doc
+    password: mysqlpass # AliyunDocApplication
 mybatis:
   mapper-locations: classpath*:/mapper/*.xml
+
+jwt:
+  secret: onlinedocseditor

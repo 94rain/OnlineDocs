@@ -2,6 +2,7 @@ package top.jisy.docs.crdt;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import top.jisy.docs.constant.FieldValues;
 import top.jisy.docs.enums.MessageType;
 
@@ -9,6 +10,7 @@ import javax.json.Json;
 import javax.websocket.Session;
 import java.util.List;
 
+@Component
 public class MessageBroker {
 
     private static final Logger log = LoggerFactory.getLogger(MessageBroker.class);
@@ -29,7 +31,7 @@ public class MessageBroker {
                 activeDocument.insert(msg);
                 break;
             case Delete:
-                activeDocument.del(msg);
+                activeDocument.delete(msg);
                 break;
             case UserJoined: /*No transform needed for these message types*/
             case UserLeft:

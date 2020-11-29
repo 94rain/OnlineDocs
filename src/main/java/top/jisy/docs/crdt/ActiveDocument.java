@@ -1,11 +1,13 @@
 package top.jisy.docs.crdt;
 
+import org.springframework.stereotype.Component;
 import top.jisy.docs.pojo.Doc;
 
 import javax.websocket.Session;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class ActiveDocument {
 
     private static final int QUEUE_LIMIT = 10;
@@ -80,7 +82,7 @@ public class ActiveDocument {
      *
      * @param msg Given message
      */
-    public void del(Message msg) {
+    public void delete(Message msg) {
         this.doc.setContent(new StringBuilder()
                 .append(doc.getContent(), 0, msg.getCursorPos())
                 .append(doc.getContent().substring(msg.getCursorPos() + msg.getMsg().length()))

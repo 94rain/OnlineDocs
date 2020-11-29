@@ -3,7 +3,7 @@ package top.jisy.docs.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import top.jisy.docs.dao.CollaboratorMapper;
+import top.jisy.docs.dao.mapper.CollaboratorMapper;
 import top.jisy.docs.pojo.Collaborator;
 import top.jisy.docs.pojo.Doc;
 import top.jisy.docs.pojo.User;

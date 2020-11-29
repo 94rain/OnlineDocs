@@ -1,4 +1,4 @@
-package top.jisy.docs.pojo;
+package top.jisy.docs.enums;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

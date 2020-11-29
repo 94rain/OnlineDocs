@@ -1,54 +1,24 @@
 package top.jisy.docs.pojo;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class History {
+    private Integer id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private int id;
-
-    @Column(name = "CONTENT")
-    private String content;
-
-    @Column(name = "HASH")
     private String hash;
 
-    @Column(name = "CTIME")
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime ctime;
+    private Date ctime;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "FK_DOCS")
-    private Doc doc;
+    private Integer fkDoc;
 
-    @PrePersist
-    private void onInsert() {
-        this.ctime = LocalDateTime.now();
-    }
+    private String content;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public String getHash() {
@@ -56,92 +26,30 @@ public class History {
     }
 
     public void setHash(String hash) {
-        this.hash = hash;
+        this.hash = hash == null ? null : hash.trim();
     }
 
-    public LocalDateTime getCtime() {
+    public Date getCtime() {
         return ctime;
     }
 
-    public void setCtime(LocalDateTime ctime) {
+    public void setCtime(Date ctime) {
         this.ctime = ctime;
     }
 
-    public Doc getDoc() {
-        return doc;
+    public Integer getFkDoc() {
+        return fkDoc;
     }
 
-    public void setDoc(Doc doc) {
-        this.doc = doc;
+    public void setFkDoc(Integer fkDoc) {
+        this.fkDoc = fkDoc;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((content == null) ? 0 : content.hashCode());
-        result = prime * result + ((ctime == null) ? 0 : ctime.hashCode());
-        result = prime * result + ((doc == null) ? 0 : doc.hashCode());
-        result = prime * result + ((hash == null) ? 0 : hash.hashCode());
-        result = prime * result + id;
-        return result;
+    public String getContent() {
+        return content;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        History other = (History) obj;
-        if (content == null) {
-            if (other.content != null) {
-                return false;
-            }
-        } else if (!content.equals(other.content)) {
-            return false;
-        }
-        if (ctime == null) {
-            if (other.ctime != null) {
-                return false;
-            }
-        } else if (!ctime.equals(other.ctime)) {
-            return false;
-        }
-        if (doc == null) {
-            if (other.doc != null) {
-                return false;
-            }
-        } else if (!doc.equals(other.doc)) {
-            return false;
-        }
-        if (hash == null) {
-            if (other.hash != null) {
-                return false;
-            }
-        } else if (!hash.equals(other.hash))
-            return false;
-        if (id != other.id) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return new StringBuilder()
-                .append("History: \n")
-                .append("\tid: " + this.id + "\n")
-                .append("\tHash: " + this.hash + "\n")
-                .append("\tCreated: " + this.ctime + "\n")
-                .append("\tDocument: " + this.doc.getId() + "\n")
-                .append("\tContent: " + this.content + "\n")
-                .toString();
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 }

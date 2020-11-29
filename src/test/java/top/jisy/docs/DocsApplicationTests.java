@@ -12,11 +12,11 @@ import top.jisy.docs.service.UserService;
 class DocsApplicationTests {
     private static final Logger log = LoggerFactory.getLogger(DocsApplicationTests.class);
 
-    @Autowired
-    CollaboratorService collaboratorService;
+    //@Autowired
+    //CollaboratorService collaboratorService;
 
-    @Autowired
-    UserService userService;
+    //@Autowired
+    //UserService userService;
 
     @Test
     void contextLoads() {

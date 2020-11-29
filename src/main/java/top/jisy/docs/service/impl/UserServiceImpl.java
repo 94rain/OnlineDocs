@@ -2,7 +2,9 @@ package top.jisy.docs.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import top.jisy.docs.dao.UserMapper;
+import top.jisy.docs.dao.mapper.RepoMapper;
+import top.jisy.docs.dao.mapper.UserMapper;
+import top.jisy.docs.pojo.Repo;
 import top.jisy.docs.pojo.User;
 import top.jisy.docs.service.UserService;
 
@@ -12,13 +14,24 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
 
+    @Autowired
+    RepoMapper repoMapper;
+
+    @Override
+    public int registration(User user) {
+        userMapper.insertSelective(user);
+
+        Repo repo = new Repo();
+        repo.setFkUser(user.getId());
+        int res = repoMapper.insertSelective(repo);
+        return res;
+    }
+
     @Override
     public String authentication(String username, String password) {
-        return "2333";
+        return "null";
         // try {
-        //     //1.调用微服务查询用户信息
         //     User user = this.userMapper.queryUser(username, password);
-        //     //2.查询结果为空，则直接返回null
         //     if (user == null) {
         //         return null;
         //     }
@@ -30,10 +43,7 @@ public class UserServiceImpl implements UserService {
         // }
     }
 
-    @Override
-    public int registration(User user) {
-        return userMapper.insertSelective(user);
-    }
+
 
 
 }

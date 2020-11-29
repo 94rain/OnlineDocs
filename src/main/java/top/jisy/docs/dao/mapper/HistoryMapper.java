@@ -1,4 +1,4 @@
-package top.jisy.docs.dao;
+package top.jisy.docs.dao.mapper;
 
 import top.jisy.docs.pojo.History;
 

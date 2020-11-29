@@ -1,60 +1,25 @@
 package top.jisy.docs.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import java.util.Date;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.time.LocalDateTime;
+public class User {
+    private Integer id;
 
-public class User implements Serializable {
-
-    private static final long serialVersionUID = -2710544765197505707L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private int id;
-
-    @Column(name = "NAME")
     private String name;
 
-    @Column(name = "PASSWORD")
-    @JsonIgnore
     private String password;
 
-    @Column(name = "MAIL")
     private String mail;
 
-    @Column(name = "CTIME")
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime ctime;
+    private Date ctime;
 
-    @Column(name = "UTIME")
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime utime;
+    private Date utime;
 
-    @PrePersist
-    private void onInsert() {
-        this.ctime = LocalDateTime.now();
-        this.utime = this.ctime;
-    }
-
-    @PreUpdate
-    private void onUpdate() {
-        this.utime = LocalDateTime.now();
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -63,7 +28,7 @@ public class User implements Serializable {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
     public String getPassword() {
@@ -71,7 +36,7 @@ public class User implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password == null ? null : password.trim();
     }
 
     public String getMail() {
@@ -79,102 +44,35 @@ public class User implements Serializable {
     }
 
     public void setMail(String mail) {
-        this.mail = mail;
+        this.mail = mail == null ? null : mail.trim();
     }
 
-    public LocalDateTime getCtime() {
+    public Date getCtime() {
         return ctime;
     }
 
-    public void setCtime(LocalDateTime ctime) {
+    public void setCtime(Date ctime) {
         this.ctime = ctime;
     }
 
-    public LocalDateTime getUtime() {
+    public Date getUtime() {
         return utime;
     }
 
-    public void setUtime(LocalDateTime utime) {
+    public void setUtime(Date utime) {
         this.utime = utime;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((ctime == null) ? 0 : ctime.hashCode());
-        result = prime * result + id;
-        result = prime * result + ((mail == null) ? 0 : mail.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((password == null) ? 0 : password.hashCode());
-        result = prime * result + ((utime == null) ? 0 : utime.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        User other = (User) obj;
-        if (ctime == null) {
-            if (other.ctime != null) {
-                return false;
-            }
-        } else if (!ctime.equals(other.ctime)) {
-            return false;
-        }
-        if (id != other.id) {
-            return false;
-        }
-        if (mail == null) {
-            if (other.mail != null) {
-                return false;
-            }
-        } else if (!mail.equals(other.mail)) {
-            return false;
-        }
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        if (password == null) {
-            if (other.password != null) {
-                return false;
-            }
-        } else if (!password.equals(other.password)) {
-            return false;
-        }
-        if (utime == null) {
-            if (other.utime != null) {
-                return false;
-            }
-        } else if (!utime.equals(other.utime)) {
-            return false;
-        }
-        return true;
     }
 
     @Override
     public String toString() {
         return new StringBuilder()
-                .append("User: \n")
-                .append("\tid: " + this.id + "\n")
-                .append("\tName: " + this.name + "\n")
-                .append("\tHash: " + this.password + "\n")
-                .append("\tMail: " + this.mail + "\n")
-                .append("\tCreated: " + this.ctime + "\n")
-                .append("\tLast updated: " + this.utime + "\n")
+                .append("User: ")
+                .append("\tid: " + this.id + ",")
+                .append("\tName: " + this.name + ",")
+                .append("\tHash: " + this.password + ",")
+                .append("\tMail: " + this.mail + ",")
+                .append("\tCreated: " + this.ctime + ",")
+                .append("\tLast updated: " + this.utime)
                 .toString();
     }
 }

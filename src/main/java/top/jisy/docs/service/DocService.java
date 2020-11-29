@@ -11,4 +11,6 @@ public interface DocService {
     List<Doc> getDocs();
 
     List<Doc> getDocsByUserId(int userId);
+
+    String createDoc(int userId, String documentName);
 }

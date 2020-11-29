@@ -1,6 +1,7 @@
-package top.jisy.docs.dao;
+package top.jisy.docs.dao.mapper;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import top.jisy.docs.pojo.Collaborator;
 
 import java.util.List;
@@ -18,6 +19,6 @@ public interface CollaboratorMapper {
 
     int updateByPrimaryKey(Collaborator record);
 
-    //@Select("SELECT c FROM Collaborator c WHERE c.doc.id=#{id} AND c.hasAccess=#{hasAccess}")
+    @Select("SELECT c FROM Collaborator c WHERE c.doc.id=#{id} AND c.hasAccess=#{hasAccess}")
     List<Collaborator> getCollaboratorsForDoc(@Param("id") Integer id, @Param("hasAccess") String hasAccess);
 }

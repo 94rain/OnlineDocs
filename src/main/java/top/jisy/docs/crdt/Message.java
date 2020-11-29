@@ -1,7 +1,9 @@
 package top.jisy.docs.crdt;
 
+import org.springframework.stereotype.Component;
 import top.jisy.docs.enums.MessageType;
 
+@Component
 public class Message {
 
     private int userId;
