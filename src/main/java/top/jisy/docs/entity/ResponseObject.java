@@ -17,6 +17,12 @@ public class ResponseObject {
         this.data = data;
     }
 
+    public ResponseObject(Status status, String message, Object data) {
+        this.status = status;
+        this.message = message;
+        this.data = data;
+    }
+
     public ResponseObject(Object data) {
         this.data = data;
     }
@@ -59,6 +65,11 @@ public class ResponseObject {
 
     public static ResponseObject success(String message) {
         ResponseObject response = new ResponseObject(new Status(Response.Status.OK), message);
+        return response;
+    }
+
+    public static ResponseObject success(Object data, String message) {
+        ResponseObject response = new ResponseObject(new Status(Response.Status.OK), message, data);
         return response;
     }
 
