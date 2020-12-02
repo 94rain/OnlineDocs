@@ -6,7 +6,7 @@ import top.jisy.docs.pojo.User;
 @Component
 public interface UserService {
     /**
-     * 用户登录
+     * Login
      *
      * @param username
      * @param password
