@@ -41,4 +41,12 @@ public class CollaboratorDao {
 
         return collaborators;
     }
+
+    @Transactional
+    public int removeCollaborator(Collaborator c) {
+        log.debug("Removing collaborator '{}' from document '{}'", c.getId(), c.getFkDoc());
+        return this.em.createQuery("DELETE FROM Collaborator c WHERE c.id = :collaboratorId")
+                .setParameter("collaboratorId", c.getId())
+                .executeUpdate();
+    }
 }
