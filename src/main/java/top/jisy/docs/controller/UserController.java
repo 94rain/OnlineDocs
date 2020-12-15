@@ -40,10 +40,8 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseObject authentication(@RequestBody JSONObject json) {
-        // 1.Login verification
-        // 2.Write token into cookie and specify httpOnly as true to prevent access and modification through js
         String username = json.get("username").toString();
-        String password = json.get("password").toString();
+        // String password = json.get("password").toString();
         JSONObject responseJson = new JSONObject();
 
         String userId = 5 + "";

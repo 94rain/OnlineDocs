@@ -14,6 +14,7 @@ import top.jisy.docs.entity.ResponseObject;
 import top.jisy.docs.pojo.Collaborator;
 import top.jisy.docs.pojo.User;
 import top.jisy.docs.service.CollaboratorService;
+import top.jisy.docs.service.UserService;
 import top.jisy.docs.util.SessionUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,16 +29,13 @@ public class CollaboratorController {
     private static Logger log = LoggerFactory.getLogger(CollaboratorController.class);
 
     @Autowired
-    DocDao docDao;
-
-    @Autowired
     SessionUtils sessionUtils;
 
     @Autowired
     CollaboratorService collaboratorService;
 
     @Autowired
-    UserMapper userMapper;
+    UserService userService;
 
     @PostMapping("/add")
     public ResponseObject addCollaborator(HttpServletRequest request) {
@@ -48,7 +46,7 @@ public class CollaboratorController {
         String documentId = request.getParameter("documentId");
         String collaboratorUsername = request.getParameter("collaboratorUsername");
 
-        User user = userMapper.getUserByName(collaboratorUsername);
+        User user = userService.getUserByName(collaboratorUsername);
 
         Collaborator newCollaborator = new Collaborator();
         newCollaborator.setFkDoc(Integer.parseInt(documentId));

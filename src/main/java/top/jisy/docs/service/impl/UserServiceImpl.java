@@ -43,6 +43,10 @@ public class UserServiceImpl implements UserService {
         // }
     }
 
+    public User getUserByName(String username) {
+        return userMapper.getUserByName(username);
+    }
+
 
 
 

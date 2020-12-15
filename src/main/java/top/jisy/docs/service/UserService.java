@@ -19,4 +19,6 @@ public interface UserService {
      * @return
      */
     int registration(User user);
+
+    User getUserByName(String username);
 }
