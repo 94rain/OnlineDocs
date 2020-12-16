@@ -1,0 +1,59 @@
+# Docker-Compose file for the Collaborative Markdown Editor
+#
+# This compose file defines the 'webapp' and 'mysql' services
+# which are automatically built using the Dockerfiles and
+# configured using external scripts from the repository.
+
+version: "3.6"
+
+services:
+    webapp:
+        hostname: onlineDocs-instance
+        container_name: onlineDocs-webapp
+        build:
+            context: .
+            dockerfile: Dockerfile
+            args:
+                buildno: 1
+        ports:
+            - "8080:8080"
+        networks:
+          - cmd_network
+        restart: on-failure
+        depends_on:
+            - mysql
+
+    mysql:
+        image: "mysql:8.0.15"
+        hostname: mysql-instance
+        environment:
+            MYSQL_ROOT_PASSWORD: mysqlroot
+            MYSQL_USER: mysqluser
+            MYSQL_PASSWORD: mysqlpass
+            MYSQL_DATABASE: cmd
+            MYSQL_PORT: 3306
+        deploy:
+            mode: replicated
+            restart_policy:
+                condition: on-failure
+        volumes:
+            - type: volume
+              source: mysql_data
+              target: /var/lib/mysql
+              volume:
+                  nocopy: true
+        networks:
+          - cmd_network
+        ports:
+            - "3306:3306"
+        restart: on-failure
+
+volumes:
+    mysql_data:
+        name: cmd-mysql-data
+        labels:
+            org.dhbw.mosbach.cmd.license: LGPL 3.0
+
+networks:
+    cmd_network:
+      name: cmd_network
