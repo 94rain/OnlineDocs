@@ -1,25 +1,20 @@
 
 # springboot
-FROM openjdk:8-jdk-alpine as build
-WORKDIR /app
+FROM maven:3.6.0-jdk-8-alpine AS MAVEN_BUILD
 
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-RUN ./mvnw dependency:go-offline
+COPY pom.xml /build/
+COPY src /build/src/
 
-COPY src src
-RUN ./mvnw package -DskipTests
-RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+WORKDIR /build/
+RUN mvn package
 
 FROM openjdk:8-jre-alpine
-VOLUME /tmp
-ARG DEPENDENCY=/app/target/dependency
-COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
-COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*","DocsApplication"]
 
+WORKDIR /app
+
+COPY --from=MAVEN_BUILD /build/target/docs-0.0.1-SNAPSHOT.jar /app/
+
+ENTRYPOINT ["java", "-jar", "docs-0.0.1-SNAPSHOT.jar"]
 
 # MySQL
 ENV MYSQL_VERSION 8.0.15
