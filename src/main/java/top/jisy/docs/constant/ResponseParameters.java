@@ -44,22 +44,4 @@ public abstract class ResponseParameters {
     public static final String COLLABORATOR_REMOVED = "The collaborator '%s' was successfully removed from your document.";
 
     //public static final String
-    //public static final String
-    //public static final String
-    //public static final String
-    //public static final String
-    //public static final String
-    //public static final String
-    //public static final String
-    //public static final String
-    //public static final String
-    //public static final String
-    //public static final String
-    //public static final String
-    //public static final String
-    //public static final String
-    //public static final String
-    //public static final String
-
-
 }

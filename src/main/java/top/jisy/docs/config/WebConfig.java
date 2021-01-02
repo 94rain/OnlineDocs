@@ -9,7 +9,8 @@ import javax.annotation.Resource;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
     @Resource
-    private TokenInterceptor tokenInterceptor ;
+    TokenInterceptor tokenInterceptor;
+
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(tokenInterceptor).addPathPatterns("/**");
     }

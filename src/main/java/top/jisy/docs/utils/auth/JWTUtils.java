@@ -1,3 +1,5 @@
+package top.jisy.docs.utils.auth;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.JWTVerifier;
