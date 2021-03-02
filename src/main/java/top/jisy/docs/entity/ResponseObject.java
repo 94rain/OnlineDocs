@@ -32,6 +32,28 @@ public class ResponseObject {
         this.message = message;
     }
 
+    public static ResponseObject success(Object data) {
+        ResponseObject response = new ResponseObject(data);
+        response.setStatus(new Status(Response.Status.OK));
+        response.setData(data);
+        return response;
+    }
+
+    public static ResponseObject success(String message) {
+        ResponseObject response = new ResponseObject(new Status(Response.Status.OK), message);
+        return response;
+    }
+
+    public static ResponseObject success(Object data, String message) {
+        ResponseObject response = new ResponseObject(new Status(Response.Status.OK), message, data);
+        return response;
+    }
+
+    public static ResponseObject fail(Response.Status status, String message) {
+        ResponseObject response = new ResponseObject(new Status(status), message);
+        return response;
+    }
+
     public Object getData() {
         return data;
     }
@@ -54,27 +76,5 @@ public class ResponseObject {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public static ResponseObject success(Object data) {
-        ResponseObject response = new ResponseObject(data);
-        response.setStatus(new Status(Response.Status.OK));
-        response.setData(data);
-        return response;
-    }
-
-    public static ResponseObject success(String message) {
-        ResponseObject response = new ResponseObject(new Status(Response.Status.OK), message);
-        return response;
-    }
-
-    public static ResponseObject success(Object data, String message) {
-        ResponseObject response = new ResponseObject(new Status(Response.Status.OK), message, data);
-        return response;
-    }
-
-    public static ResponseObject fail(Response.Status status, String message) {
-        ResponseObject response = new ResponseObject(new Status(status), message);
-        return response;
     }
 }

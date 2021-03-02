@@ -12,13 +12,13 @@ import java.util.Calendar;
 public class JWTUtils {
 
     //get token
-    public static String getToken(User u){
+    public static String getToken(User u) {
         Calendar instance = Calendar.getInstance();
-        instance.add(Calendar.DATE,7); //7 days to expire
+        instance.add(Calendar.DATE, 7); //7 days to expire
 
         JWTCreator.Builder builder = JWT.create();
-        builder.withClaim("userId",u.getId())
-                .withClaim("username",u.getName());
+        builder.withClaim("userId", u.getId())
+                .withClaim("username", u.getName());
 
         String token = builder.withExpiresAt(instance.getTime())
                 .sign(Algorithm.HMAC256(u.getPassword()));
@@ -26,7 +26,7 @@ public class JWTUtils {
     }
 
     // Verify the legitimacy of the token and return the token
-    public static DecodedJWT verify(String token){
+    public static DecodedJWT verify(String token) {
         String password = "";
         JWTVerifier build = JWT.require(Algorithm.HMAC256(password)).build();
         DecodedJWT verify = build.verify(token);

@@ -45,7 +45,7 @@ public class UserController {
         JSONObject responseJson = new JSONObject();
 
         String userId = 5 + "";
-        String token = jwtConfig.createToken(userId) ;
+        String token = jwtConfig.createToken(userId);
         if (!StringUtils.isEmpty(token)) {
             responseJson.put("token", token);
             log.debug("{}: Created new session for user '{}'", username);

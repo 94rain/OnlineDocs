@@ -41,7 +41,7 @@ public class DocController {
 
     @GetMapping("/all")
     public ResponseObject getAllDocsByUser() {
-        if (!sessionUtils.isLoggedIn()) { ;
+        if (!sessionUtils.isLoggedIn()) {
             return ResponseObject.fail(Response.Status.BAD_REQUEST, ResponseParameters.CREATE_DOCUMENT_NOT_LOGGED_IN);
         }
         // int userId = sessionUtils.getUser().getId();
@@ -52,15 +52,17 @@ public class DocController {
         List<DocumentListEntity> documentEntities = new ArrayList<>();
 
         if (ownedDocuments != null) {
-            String listIcon = "person";
+            String listIcon;
             for (Doc document : ownedDocuments) {
                 List<Collaborator> collaborators = collaboratorDao.getCollaboratorsForDoc(document);
 
                 if (collaborators != null && !collaborators.isEmpty()) {
                     listIcon = "group";
+                } else {
+                    listIcon = "person";
                 }
 
-                documentEntities.add(new DocumentListEntity("person", document, collaborators));
+                documentEntities.add(new DocumentListEntity(listIcon, document, collaborators));
             }
         }
 

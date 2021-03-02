@@ -20,6 +20,7 @@ import java.util.List;
 public class DocDao {
     @PersistenceContext(unitName = "cmd")
     private EntityManager em;
+
     public List<Doc> getDocsOwnedBy(User u) {
         List<Doc> docs = new ArrayList<>();
 

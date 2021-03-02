@@ -15,32 +15,33 @@ import javax.servlet.http.HttpServletResponse;
 public class TokenInterceptor extends HandlerInterceptorAdapter {
 
     @Resource
-    private JwtConfig jwtConfig ;
+    private JwtConfig jwtConfig;
+
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws SignatureException {
         /** filter addresses */
-        String uri = request.getRequestURI() ;
-        if (uri.contains("/login")){
-            return true ;
+        String uri = request.getRequestURI();
+        if (uri.contains("/login")) {
+            return true;
         }
         /** Token verification */
         String token = request.getHeader(jwtConfig.getHeader());
-        if(StringUtils.isEmpty(token)){
+        if (StringUtils.isEmpty(token)) {
             token = request.getParameter(jwtConfig.getHeader());
         }
-        if(StringUtils.isEmpty(token)){
-            throw new SignatureException(jwtConfig.getHeader()+ "cannot be null");
+        if (StringUtils.isEmpty(token)) {
+            throw new SignatureException(jwtConfig.getHeader() + "cannot be null");
         }
 
         Claims claims = null;
-        try{
+        try {
             claims = jwtConfig.getTokenClaim(token);
-            if(claims == null || jwtConfig.isTokenExpired(claims.getExpiration())){
+            if (claims == null || jwtConfig.isTokenExpired(claims.getExpiration())) {
                 throw new SignatureException(jwtConfig.getHeader() + "invalid, please re-login");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new SignatureException(jwtConfig.getHeader() + "invalid, please re-login");
         }
 

@@ -12,23 +12,23 @@ import javax.servlet.http.HttpServletResponse;
 public class TokenInterceptor implements HandlerInterceptor {
 
     @Override
-    public  boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("token");
         try {
             JWTUtils.verify(token);
-        }catch (SignatureVerificationException e){
+        } catch (SignatureVerificationException e) {
             e.printStackTrace();
             System.out.println("invalid sign");
             return false;
-        }catch (TokenExpiredException e){
+        } catch (TokenExpiredException e) {
             e.printStackTrace();
             System.out.println("token expired");
             return false;
-        }catch (AlgorithmMismatchException e){
+        } catch (AlgorithmMismatchException e) {
             e.printStackTrace();
             System.out.println("token algorithm mismatch");
             return false;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("invalid token");
             return false;
