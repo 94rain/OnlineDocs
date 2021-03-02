@@ -9,7 +9,7 @@
                          style="font-weight: 900; text-shadow: 2px 2px #000000">Built upon SpringBoot and Vue.js
                     </div>
                     <div class="white--text subheading mb-3 text-xs-center"
-                         style="font-weight: 900; text-shadow: 2px 2px #000000">Currently supports real-time collaborative markdown editing, more yet to come.
+                         style="font-weight: 900; text-shadow: 2px 2px #000000">Currently supports real-time collaborative markdown editing, more yet to come. <br /> Test accounts: <br />Username: test, Password: Test123456<br />Username: test1, Password: Test123456
                     </div>
                     <template v-if="!this.$store.state.login.isLoggedIn">
                         <v-btn class="blue lighten-2 mt-5" dark large @click="$store.commit('login/showLoginDialog')">
