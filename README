@@ -1,6 +1,0 @@
-
-
-<h1 align="center">An online collaborative text editor</h1>
-built upon SpringBoot and Vue.js
-
-run `docker-compose up` and configure Nginx to be like [nginx.conf](nginx.conf)
