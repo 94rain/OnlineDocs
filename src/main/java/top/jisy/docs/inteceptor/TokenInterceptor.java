@@ -1,38 +1,52 @@
 package top.jisy.docs.inteceptor;
 
-import com.auth0.jwt.exceptions.AlgorithmMismatchException;
-import com.auth0.jwt.exceptions.SignatureVerificationException;
-import com.auth0.jwt.exceptions.TokenExpiredException;
-import org.springframework.web.servlet.HandlerInterceptor;
-import top.jisy.docs.utils.auth.JWTUtils;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.SignatureException;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import top.jisy.docs.config.JwtConfig;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class TokenInterceptor implements HandlerInterceptor {
+@Component
+public class TokenInterceptor extends HandlerInterceptorAdapter {
+
+    @Resource
+    private JwtConfig jwtConfig;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token = request.getHeader("token");
-        try {
-            JWTUtils.verify(token);
-        } catch (SignatureVerificationException e) {
-            e.printStackTrace();
-            System.out.println("invalid sign");
-            return false;
-        } catch (TokenExpiredException e) {
-            e.printStackTrace();
-            System.out.println("token expired");
-            return false;
-        } catch (AlgorithmMismatchException e) {
-            e.printStackTrace();
-            System.out.println("token algorithm mismatch");
-            return false;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("invalid token");
-            return false;
+    public boolean preHandle(HttpServletRequest request,
+                             HttpServletResponse response,
+                             Object handler) throws SignatureException {
+        /** filter addresses */
+        String uri = request.getRequestURI();
+        if (uri.contains("/login")) {
+            return true;
         }
+        /** Token verification */
+        String token = request.getHeader(jwtConfig.getHeader());
+        if (StringUtils.isEmpty(token)) {
+            token = request.getParameter(jwtConfig.getHeader());
+        }
+        if (StringUtils.isEmpty(token)) {
+            throw new SignatureException(jwtConfig.getHeader() + "cannot be null");
+        }
+
+        Claims claims = null;
+        try {
+            claims = jwtConfig.getTokenClaim(token);
+            if (claims == null || jwtConfig.isTokenExpired(claims.getExpiration())) {
+                throw new SignatureException(jwtConfig.getHeader() + "invalid, please re-login");
+            }
+        } catch (Exception e) {
+            throw new SignatureException(jwtConfig.getHeader() + "invalid, please re-login");
+        }
+
+        /** Set user identity ID */
+        request.setAttribute("identityId", claims.getSubject());
         return true;
     }
 }
