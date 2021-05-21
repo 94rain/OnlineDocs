@@ -6,11 +6,15 @@ built upon SpringBoot, Mybatis, Websocket and Vue.js
 
 ## Deployment
 
+### Docker
+
 To deploy the application with Docker, run `docker-compose up` and configure Nginx to be like [nginx.conf](nginx.conf)
+
+### Separately
 
 To run the backend and frontend separately (with maven, jre8 and npm): 
 
-run `mvn package -DskipTests; java -jar ./target/docs-0.0.1-SNAPSHOT.jar` for the backend, and `npm install; npm run serve` for the frontend (`npm run build` for production build)
+run `mvn package -DskipTests; java -jar ./target/docs-0.0.1-SNAPSHOT.jar` for a production build of the backend, and `npm install; npm run serve` for frontend development (`npm run build` for a production build, needs a http server to host static files)
 
 Default MySQL config: (initial file: [sql.sql](sql.sql) )
 ```
@@ -20,6 +24,7 @@ Username: mysqluser
 Password: mysqlpass
 Database: cmd
 ```
+
 
 ## Customization
 * MySQL default data location: `/var/lib/mysql`. You can change it in [docker-compose.yml](docker-compose.yml) if you wish.
